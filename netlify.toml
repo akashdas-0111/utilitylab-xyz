@@ -4,28 +4,23 @@
 [build.environment]
   NODE_VERSION = "18"
 
+[build.processing.html]
+  pretty_urls = true
+
 [[plugins]]
   package = "@netlify/plugin-sitemap"
 
   [plugins.inputs]
     buildDir = "."
+    prettyURLs = true
+    changeFreq = "weekly"
+    priority = "0.8"
     exclude = [
       "./admin/**",
       "./privacy-policy.html",
       "./404.html",
       "./content/**"
     ]
-    prettyURLs = false
-    changeFreq = "weekly"
-    priorities = """
-      index.html=1.0
-      timer.html=0.9
-      tools.html=0.9
-      tools/cgpa-calculator.html=0.8
-      tools/percentage-calculator.html=0.8
-      tools/word-counter.html=0.8
-      blog/index.html=0.8
-    """
 
 [[headers]]
   for = "/*.html"
