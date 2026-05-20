@@ -8,7 +8,8 @@ const EXCLUDED = [
   'admin',
   'content',
   '404.html',
-  'privacy-policy.html'
+  'privacy-policy.html',
+  'blog/post.html'
 ];
 
 const PRIORITIES = {
