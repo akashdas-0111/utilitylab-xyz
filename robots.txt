@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /content/
-Sitemap: https://utilitylab.xyz/sitemap.xml
+Sitemap: https://utilitylabs.xyz/sitemap.xml

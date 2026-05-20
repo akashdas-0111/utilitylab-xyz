@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'https://utilitylab.xyz';
+const BASE_URL = 'https://utilitylabs.xyz';
 const TODAY = new Date().toISOString().split('T')[0];
 
 const EXCLUDED = [
