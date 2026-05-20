@@ -1,0 +1,51 @@
+[build]
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+
+  [plugins.inputs]
+    buildDir = "."
+    exclude = [
+      "./admin/**",
+      "./privacy-policy.html",
+      "./404.html",
+      "./content/**"
+    ]
+    prettyURLs = false
+    changeFreq = "weekly"
+    priorities = """
+      index.html=1.0
+      timer.html=0.9
+      tools.html=0.9
+      tools/cgpa-calculator.html=0.8
+      tools/percentage-calculator.html=0.8
+      tools/word-counter.html=0.8
+      blog/index.html=0.8
+    """
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[redirects]]
+  from = "/blog/:slug"
+  to = "/blog/post.html?slug=:slug"
+  status = 200
+
+[[redirects]]
+  from = "/404"
+  to = "/404.html"
+  status = 404
