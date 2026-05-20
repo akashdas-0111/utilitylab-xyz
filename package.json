@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Free tools and resources for Indian students",
   "scripts": {
-    "build": "echo 'Static site — no build needed'"
-  },
-  "dependencies": {
-    "@netlify/plugin-sitemap": "*"
+    "build": "node generate-sitemap.js"
   }
 }

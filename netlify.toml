@@ -1,26 +1,12 @@
 [build]
   publish = "."
+  command = "node generate-sitemap.js"
 
 [build.environment]
   NODE_VERSION = "18"
 
 [build.processing.html]
   pretty_urls = true
-
-[[plugins]]
-  package = "@netlify/plugin-sitemap"
-
-  [plugins.inputs]
-    buildDir = "."
-    prettyURLs = true
-    changeFreq = "weekly"
-    priority = "0.8"
-    exclude = [
-      "./admin/**",
-      "./privacy-policy.html",
-      "./404.html",
-      "./content/**"
-    ]
 
 [[headers]]
   for = "/*.html"
