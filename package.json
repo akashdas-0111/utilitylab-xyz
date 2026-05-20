@@ -6,6 +6,6 @@
     "build": "echo 'Static site — no build needed'"
   },
   "dependencies": {
-    "@netlify/plugin-sitemap": "^0.9.0"
+    "@netlify/plugin-sitemap": "*"
   }
 }
