@@ -92,4 +92,21 @@ collections:
         name: featured
         widget: boolean
         default: false
-        hint: "Show this post in the h
+        hint: "Show this post in the homepage featured section"
+
+      - label: Affiliate Link (optional)
+        name: affiliate_url
+        widget: string
+        required: false
+        hint: "If promoting a tool, add the affiliate URL here"
+
+      - label: Affiliate Button Text (optional)
+        name: affiliate_text
+        widget: string
+        required: false
+        hint: "e.g. Try It Free →"
+
+      - label: Article Body
+        name: body
+        widget: markdown
+        hint: "Write your full article here."
