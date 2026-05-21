@@ -29,22 +29,26 @@ const CHANGE_FREQ = {
   'tools.html': 'weekly'
 };
 
+// ─── GET ALL HTML FILES ───────────────────────
 function getAllHtmlFiles(dir, base = '') {
   const files = [];
   const items = fs.readdirSync(dir);
-  
+
   for (const item of items) {
     const fullPath = path.join(dir, item);
-    const relativePath = base ? `${base}/${item}` : item;
-    
-    const isExcluded = EXCLUDED.some(ex => 
+    const relativePath = base
+      ? `${base}/${item}` : item;
+
+    const isExcluded = EXCLUDED.some(ex =>
       relativePath.startsWith(ex) || item === ex
     );
     if (isExcluded) continue;
-    
+
     const stat = fs.statSync(fullPath);
     if (stat.isDirectory()) {
-      files.push(...getAllHtmlFiles(fullPath, relativePath));
+      files.push(
+        ...getAllHtmlFiles(fullPath, relativePath)
+      );
     } else if (item.endsWith('.html')) {
       files.push(relativePath);
     }
@@ -52,29 +56,75 @@ function getAllHtmlFiles(dir, base = '') {
   return files;
 }
 
+// ─── CONVERT FILE TO URL ──────────────────────
 function toUrl(filePath) {
   if (filePath === 'index.html') return '/';
-  return '/' + filePath.replace(/\.html$/, '').replace(/\/index$/, '');
+  return '/' + filePath
+    .replace(/\.html$/, '')
+    .replace(/\/index$/, '');
 }
 
+// ─── GET BLOG POSTS ───────────────────────────
+function getBlogPostUrls() {
+  const indexPath = path.join(
+    __dirname, 'content', 'blog', 'index.json'
+  );
+
+  if (!fs.existsSync(indexPath)) return [];
+
+  try {
+    const posts = JSON.parse(
+      fs.readFileSync(indexPath, 'utf8')
+    );
+
+    return posts.map(post => ({
+      url: `/blog/${post.slug}`,
+      lastmod: post.date || TODAY,
+      changefreq: 'monthly',
+      priority: '0.7'
+    }));
+  } catch(e) {
+    return [];
+  }
+}
+
+// ─── BUILD SITEMAP ENTRIES ────────────────────
 const htmlFiles = getAllHtmlFiles('.');
-const urls = htmlFiles.map(file => {
+const staticUrls = htmlFiles.map(file => {
   const url = toUrl(file);
   const priority = PRIORITIES[file] || '0.7';
   const changefreq = CHANGE_FREQ[file] || 'weekly';
-  
-  return `  <url>
-    <loc>${BASE_URL}${url}</loc>
-    <lastmod>${TODAY}</lastmod>
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
-  </url>`;
+
+  return {
+    url,
+    lastmod: TODAY,
+    changefreq,
+    priority
+  };
 });
 
+const blogUrls = getBlogPostUrls();
+const allUrls = [...staticUrls, ...blogUrls];
+
+// ─── GENERATE XML ─────────────────────────────
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.join('\n')}
+${allUrls.map(entry => `  <url>
+    <loc>${BASE_URL}${entry.url}</loc>
+    <lastmod>${entry.lastmod}</lastmod>
+    <changefreq>${entry.changefreq}</changefreq>
+    <priority>${entry.priority}</priority>
+  </url>`).join('\n')}
 </urlset>`;
 
 fs.writeFileSync('sitemap.xml', sitemap);
-console.log('Sitemap generated with ' + urls.length + ' URLs');
+
+console.log(
+  `✅ Sitemap generated with ${allUrls.length} URLs`
+);
+console.log(
+  `   Static pages: ${staticUrls.length}`
+);
+console.log(
+  `   Blog posts: ${blogUrls.length}`
+);
