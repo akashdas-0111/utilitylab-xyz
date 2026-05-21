@@ -1,6 +1,8 @@
 backend:
   name: git-gateway
   branch: main
+  identity_url: https://utilitylabs.xyz/.netlify/identity
+  gateway_url: https://utilitylabs.xyz/.netlify/git
 
 media_folder: assets/images/blog
 public_folder: /assets/images/blog
@@ -29,7 +31,7 @@ collections:
       - label: URL Slug
         name: slug
         widget: string
-        hint: "Short, hyphen-separated, 3-5 words max. Example: cgpa-to-percentage — becomes utilitylabs.xyz/blog/cgpa-to-percentage"
+        hint: "Short, hyphen-separated, 3-5 words max. Example: cgpa-to-percentage"
         pattern:
           - "^[a-z0-9-]+$"
           - "Lowercase letters, numbers and hyphens only. No spaces."
@@ -90,21 +92,4 @@ collections:
         name: featured
         widget: boolean
         default: false
-        hint: "Show this post in the homepage featured section"
-
-      - label: Affiliate Link (optional)
-        name: affiliate_url
-        widget: string
-        required: false
-        hint: "If promoting a tool, add the affiliate URL here"
-
-      - label: Affiliate Button Text (optional)
-        name: affiliate_text
-        widget: string
-        required: false
-        hint: "e.g. Try It Free →"
-
-      - label: Article Body
-        name: body
-        widget: markdown
-        hint: "Write your full article here. Use headings, bullet points, and keep paragraphs short."
+        hint: "Show this post in the h
