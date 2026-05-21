@@ -3,151 +3,1347 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Metadata -->
-  <title>Blog Post · UtilityLab</title>
-  <meta name="description" content="Read this comprehensive academic resource guide on the UtilityLab blog to boost your studies and simplify your calculations.">
-  <link rel="canonical" href="https://utilitylabs.xyz/blog/post.html">
-  
-  <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="Blog Post · UtilityLab">
-  <meta property="og:description" content="Read this comprehensive academic resource guide on the UtilityLab blog to boost your studies and simplify your calculations.">
-  <meta property="og:image" content="https://utilitylabs.xyz/assets/images/og-default.png">
-  <meta property="og:url" content="https://utilitylabs.xyz/blog/post.html">
+  <title id="metaTitle">Loading... | UtilityLab</title>
+  <meta name="description" id="metaDesc" content="">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" id="metaCanonical" href="https://utilitylabs.xyz/blog">
+  <meta property="og:title" id="ogTitle" content="">
+  <meta property="og:description" id="ogDesc" content="">
+  <meta property="og:image" id="ogImage" content="https://utilitylabs.xyz/assets/images/og-default.png">
+  <meta property="og:url" id="ogUrl" content="">
   <meta property="og:type" content="article">
-  
-  <!-- Fonts preconnect and links -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  
-  <!-- Stylesheets -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
-  
-  <!-- Google Analytics Placeholder -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
   <!-- GA4 tag goes here -->
+
+  <style>
+    :root {
+      --ink: #0D0D0D;
+      --paper: #F5F2EC;
+      --accent: #FF4D00;
+      --accent-soft: #FFF0EB;
+      --muted: #6B6560;
+      --border: #E0DDD7;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--ink);
+      padding: 0 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    nav a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--white); }
+    nav a.active { color: var(--accent); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: white;
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: var(--ink);
+      padding: 1rem 5vw;
+      gap: 1rem;
+    }
+
+    .mobile-nav.open { display: flex; }
+
+    .mobile-nav a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+    }
+
+    /* AD BANNER */
+    .ad-banner {
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 4px,
+        rgba(0,0,0,0.02) 4px, rgba(0,0,0,0.02) 8px
+      );
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin: 1rem 5vw;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.05em;
+    }
+
+    /* LOADING */
+    .loading-state {
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* POST HERO */
+    .post-hero {
+      background: var(--ink);
+      padding: 3rem 5vw 4rem;
+    }
+
+    .post-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .post-breadcrumb a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .post-breadcrumb a:hover {
+      color: var(--accent);
+    }
+
+    .post-breadcrumb span {
+      color: rgba(255,255,255,0.2);
+    }
+
+    .post-category-badge {
+      display: inline-block;
+      background: rgba(255,77,0,0.15);
+      border: 1px solid rgba(255,77,0,0.3);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .post-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      color: white;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+
+    .post-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .post-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .author-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      font-family: 'Syne', sans-serif;
+      flex-shrink: 0;
+    }
+
+    .author-info strong {
+      display: block;
+      font-size: 0.85rem;
+      color: white;
+      font-weight: 500;
+    }
+
+    .author-info span {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .post-meta-sep {
+      color: rgba(255,255,255,0.15);
+    }
+
+    .post-read-time {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* FEATURED IMAGE */
+    .post-featured-img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* POST LAYOUT */
+    .post-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 5vw;
+      align-items: start;
+    }
+
+    /* ARTICLE BODY */
+    .post-body {
+      min-width: 0;
+    }
+
+    .article-content {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    .article-content h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -0.025em;
+      margin: 2.5rem 0 1rem;
+      color: var(--ink);
+    }
+
+    .article-content h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin: 2rem 0 0.75rem;
+      color: var(--ink);
+    }
+
+    .article-content h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1.25rem;
+      font-weight: 300;
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin: 1rem 0 1.25rem 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.5rem;
+      font-weight: 300;
+    }
+
+    .article-content blockquote {
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 1rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .article-content code {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.88rem;
+      font-family: monospace;
+    }
+
+    .article-content pre {
+      background: var(--ink);
+      color: #E5E7EB;
+      border-radius: 12px;
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-size: 0.88rem;
+    }
+
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    .article-content img {
+      width: 100%;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+    }
+
+    .article-content a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .article-content th {
+      background: var(--ink);
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    .article-content td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-content tr:nth-child(even) td {
+      background: var(--paper);
+    }
+
+    /* MID ARTICLE AD */
+    .mid-article-ad {
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 4px,
+        rgba(0,0,0,0.02) 4px, rgba(0,0,0,0.02) 8px
+      );
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    /* AFFILIATE CTA */
+    .affiliate-box {
+      background: var(--accent);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 2.5rem 0;
+      text-align: center;
+    }
+
+    .affiliate-box p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+
+    .affiliate-box a {
+      display: inline-block;
+      background: white;
+      color: var(--accent);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .affiliate-box a:hover {
+      background: var(--ink);
+      color: white;
+    }
+
+    .affiliate-note {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.75rem;
+      display: block;
+    }
+
+    /* SHARE ROW */
+    .share-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .share-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .share-btn {
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: var(--ink);
+      display: inline-block;
+    }
+
+    .share-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* AUTHOR BIO */
+    .author-bio {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin: 2rem 0;
+    }
+
+    .author-bio-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .author-bio-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .author-bio-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* SIDEBAR */
+    .post-sidebar {
+      position: sticky;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .sidebar-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+      color: var(--ink);
+    }
+
+    /* TABLE OF CONTENTS */
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc-item a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: block;
+      padding: 4px 0;
+      border-left: 2px solid var(--border);
+      padding-left: 10px;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+
+    .toc-item a:hover {
+      color: var(--accent);
+      border-left-color: var(--accent);
+    }
+
+    .toc-item.h3 a {
+      padding-left: 20px;
+      font-size: 0.78rem;
+    }
+
+    /* SIDEBAR AD */
+    .sidebar-ad {
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 4px,
+        rgba(0,0,0,0.02) 4px, rgba(0,0,0,0.02) 8px
+      );
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* RELATED POSTS */
+    .related-section {
+      padding: 4rem 5vw;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    .related-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.5rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .related-card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .related-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.25s;
+      transform-origin: left;
+    }
+
+    .related-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .related-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .related-card-cat {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .related-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .related-card-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* NOT FOUND */
+    .not-found {
+      text-align: center;
+      padding: 8rem 2rem;
+    }
+
+    .not-found h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .not-found p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #E03D00;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      padding: 3rem 5vw 1.5rem;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: white;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-logo span { color: var(--accent); }
+
+    .footer-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.35);
+      font-weight: 300;
+      margin-top: 0.5rem;
+      max-width: 220px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      margin-bottom: 0.6rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: white; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .post-layout {
+        grid-template-columns: 1fr;
+      }
+      .post-sidebar { display: none; }
+      .related-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .related-grid { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; }
+      .share-row { gap: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Accessible Skip Link -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#main-content"
+  style="position:absolute;left:-9999px;top:0;
+  background:var(--accent);color:white;
+  padding:8px 16px;z-index:999;
+  border-radius:0 0 8px 0;
+  font-family:'DM Sans',sans-serif;"
+  onfocus="this.style.left='0'"
+  onblur="this.style.left='-9999px'">
+  Skip to main content
+</a>
 
-  <!-- Shared Header -->
-  <header class="site-header">
-    <div class="header-container">
-      <a href="/" class="logo">Utility<span>Lab</span></a>
-      
-      <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
-      <nav class="main-nav" id="main-navigation">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/timer.html" class="nav-link">Timer</a>
-        <a href="/tools.html" class="nav-link">Tools</a>
-        <a href="/blog/" class="nav-link">Blog</a>
+<!-- HEADER -->
+<header>
+  <a href="/" class="logo">Utility<span>Lab</span></a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/timer">Timer</a>
+    <a href="/tools">Tools</a>
+    <a href="/blog" class="active">Blog</a>
+  </nav>
+  <button class="hamburger"
+    aria-label="Open navigation menu"
+    onclick="document.getElementById('mobileNav')
+      .classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="/">Home</a>
+  <a href="/timer">Timer</a>
+  <a href="/tools">Tools</a>
+  <a href="/blog">Blog</a>
+</div>
+
+<!-- AD BANNER 1 -->
+<div class="ad-banner">
+  <!-- AdSense Leaderboard 728×90 -->
+</div>
+
+<main id="main-content">
+  <div id="postContent">
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p style="color:var(--muted);font-size:0.9rem;">
+        Loading article...
+      </p>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="/" class="footer-logo">
+        Utility<span>Lab</span>
+      </a>
+      <p class="footer-desc">
+        Free tools for students worldwide.
+        No login. No payment. Ever.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <a href="/timer">Study Timer</a>
+      <a href="/tools/cgpa-calculator">
+        CGPA Calculator</a>
+      <a href="/tools/percentage-calculator">
+        Percentage Calculator</a>
+      <a href="/tools/word-counter">
+        Word Counter</a>
+    </div>
+    <div class="footer-col">
+      <h4>Site</h4>
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/tools">All Tools</a>
+      <a href="/about">About</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 UtilityLabs.xyz ·
+    Made with ❤️ for Students Worldwide
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════
+// GET SLUG FROM URL
+// ═══════════════════════════════════════
+function getSlug() {
+  const params = new URLSearchParams(
+    window.location.search
+  );
+  return params.get('slug') || '';
+}
+
+// ═══════════════════════════════════════
+// LOAD AND RENDER POST
+// ═══════════════════════════════════════
+async function loadPost() {
+  const slug = getSlug();
+
+  if (!slug) {
+    showNotFound();
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      `/content/blog/${slug}.md`
+    );
+
+    if (!res.ok) {
+      showNotFound();
+      return;
+    }
+
+    const raw = await res.text();
+    const { frontmatter, body } = parseFrontmatter(raw);
+    renderPost(frontmatter, body, slug);
+  } catch(e) {
+    showNotFound();
+  }
+}
+
+// ═══════════════════════════════════════
+// PARSE FRONTMATTER
+// ═══════════════════════════════════════
+function parseFrontmatter(raw) {
+  const match = raw.match(
+    /^---\n([\s\S]*?)\n---\n([\s\S]*)$/
+  );
+
+  if (!match) {
+    return { frontmatter: {}, body: raw };
+  }
+
+  const yamlStr = match[1];
+  const body = match[2];
+  const frontmatter = {};
+
+  yamlStr.split('\n').forEach(line => {
+    const colonIdx = line.indexOf(':');
+    if (colonIdx === -1) return;
+    const key = line.slice(0, colonIdx).trim();
+    let val = line.slice(colonIdx + 1).trim();
+    val = val.replace(/^["']|["']$/g, '');
+    if (val === 'true') val = true;
+    if (val === 'false') val = false;
+    if (!isNaN(val) && val !== '')
+      val = Number(val);
+    frontmatter[key] = val;
+  });
+
+  return { frontmatter, body };
+}
+
+// ═══════════════════════════════════════
+// RENDER POST
+// ═══════════════════════════════════════
+function renderPost(fm, body, slug) {
+  // UPDATE META TAGS
+  const title = fm.title || 'Article';
+  const desc = fm.description || '';
+  const url =
+    `https://utilitylabs.xyz/blog/${slug}`;
+
+  document.getElementById('metaTitle')
+    .textContent = `${title} | UtilityLab`;
+  document.getElementById('metaDesc')
+    .setAttribute('content', desc);
+  document.getElementById('metaCanonical')
+    .setAttribute('href', url);
+  document.getElementById('ogTitle')
+    .setAttribute('content', title);
+  document.getElementById('ogDesc')
+    .setAttribute('content', desc);
+  document.getElementById('ogUrl')
+    .setAttribute('content', url);
+
+  if (fm.thumbnail) {
+    document.getElementById('ogImage')
+      .setAttribute('content', fm.thumbnail);
+  }
+
+  // ADD ARTICLE SCHEMA
+  addArticleSchema(fm, url);
+
+  // FORMAT DATE
+  const date = fm.date
+    ? new Date(fm.date).toLocaleDateString(
+        'en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })
+    : '';
+
+  // CATEGORY
+  const catLabel = fm.category
+    ? fm.category
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase())
+    : 'Article';
+
+  // AUTHOR INITIAL
+  const author = fm.author || 'UtilityLab Team';
+  const initial = author.charAt(0).toUpperCase();
+
+  // PARSE MARKDOWN
+  const htmlBody = marked.parse(body);
+
+  // INJECT MID-ARTICLE AD after 3rd paragraph
+  const injectedBody = injectMidAd(htmlBody);
+
+  // AFFILIATE BOX
+  const affiliateHtml =
+    fm.affiliate_url && fm.affiliate_text
+      ? `<div class="affiliate-box">
+          <p>Recommended resource for this article:</p>
+          <a href="${fm.affiliate_url}"
+            target="_blank"
+            rel="noopener nofollow">
+            ${fm.affiliate_text}
+          </a>
+          <span class="affiliate-note">
+            Affiliate link — we may earn a small
+            commission at no extra cost to you
+          </span>
+        </div>`
+      : '';
+
+  // FEATURED IMAGE
+  const featuredImg = fm.thumbnail
+    ? `<img
+        src="${fm.thumbnail}"
+        alt="${title}"
+        class="post-featured-img"
+        loading="eager">`
+    : '';
+
+  // RENDER
+  document.getElementById('postContent')
+    .innerHTML = `
+    <section class="post-hero">
+      <nav class="post-breadcrumb"
+        aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>›</span>
+        <a href="/blog">Blog</a>
+        <span>›</span>
+        <span>${title}</span>
       </nav>
-    </div>
-  </header>
-
-  <!-- Ad Banner placement 1: Immediately after header (Leaderboard 728x90) -->
-  <div class="leaderboard-banner">
-    <div class="ad-banner">
-      <!-- AdSense code goes here -->
-    </div>
-  </div>
-
-  <!-- Hero/Intro section wrapper for template -->
-  <div class="intro-section" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 0;">
-    <span style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; color: var(--color-accent); letter-spacing: 0.05em; display: inline-block; margin-bottom: 0.5rem;">Academic Guide</span>
-    <h1 class="page-title">Blog Post Title Placeholder</h1>
-    <p class="page-description" style="margin-bottom: 1rem;">
-      A brief summary and introduction to this blog post article.
-    </p>
-    <div style="font-size: 0.875rem; color: var(--color-muted); margin-bottom: 2rem;">Published on May 20, 2026 &middot; 5 min read</div>
-  </div>
-
-  <!-- Ad Banner placement 2: After hero/intro section (Two 300x250 side-by-side, centered) -->
-  <div class="side-by-side-banners">
-    <div class="ad-banner">
-      <!-- AdSense code goes here -->
-    </div>
-    <div class="ad-banner">
-      <!-- AdSense code goes here -->
-    </div>
-  </div>
-
-  <!-- Main Content Shell -->
-  <main id="main-content" class="main-wrapper" style="padding-top: 1rem;">
-    <!-- Content sections left empty for now as requested -->
-    <div class="content-placeholder" style="min-height: 100px;">
-      <!-- Content to be added here in the future -->
-    </div>
-
-    <!-- Ad Banner placement 3: Middle of main content (336x280 large rectangle) -->
-    <div class="middle-banner">
-      <div class="ad-banner">
-        <!-- AdSense code goes here -->
+      <div class="post-category-badge">
+        ${catLabel}
       </div>
-    </div>
-
-    <div class="content-placeholder-bottom" style="min-height: 100px;">
-      <!-- Content to be added here in the future -->
-    </div>
-  </main>
-
-  <!-- Ad Banner placement 4: Before footer (Leaderboard 728x90) -->
-  <div class="leaderboard-banner">
-    <div class="ad-banner">
-      <!-- AdSense code goes here -->
-    </div>
-  </div>
-
-  <!-- Shared Footer -->
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div class="footer-top">
-        <div>
-          <div class="footer-logo">Utility<span>Lab</span></div>
-          <p class="footer-tagline">Essential digital utilities and calculators designed for Indian students.</p>
+      <h1 class="post-title">${title}</h1>
+      <div class="post-meta-row">
+        <div class="post-author">
+          <div class="author-avatar">
+            ${initial}
+          </div>
+          <div class="author-info">
+            <strong>${author}</strong>
+            <span>${date}</span>
+          </div>
         </div>
-        <div class="footer-nav">
-          <div>
-            <div class="footer-group-title">Explore</div>
-            <ul class="footer-links">
-              <li><a href="/" class="footer-link">Home</a></li>
-              <li><a href="/timer.html" class="footer-link">Timer</a></li>
-              <li><a href="/tools.html" class="footer-link">Tools</a></li>
-              <li><a href="/blog/" class="footer-link">Blog</a></li>
-            </ul>
+        ${fm.read_time
+          ? `<span class="post-meta-sep">·</span>
+             <span class="post-read-time">
+               ⏱ ${fm.read_time} min read
+             </span>`
+          : ''}
+      </div>
+    </section>
+
+    ${featuredImg}
+
+    <div class="post-layout">
+      <div class="post-body">
+        <article class="article-content"
+          id="articleContent">
+          ${injectedBody}
+        </article>
+
+        ${affiliateHtml}
+
+        <div class="share-row">
+          <span class="share-label">
+            Share this article:
+          </span>
+          <button class="share-btn"
+            onclick="copyLink()">
+            🔗 Copy Link
+          </button>
+          <a class="share-btn"
+            href="https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}"
+            target="_blank"
+            rel="noopener">
+            𝕏 Twitter
+          </a>
+          <a class="share-btn"
+            href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}"
+            target="_blank"
+            rel="noopener">
+            LinkedIn
+          </a>
+        </div>
+
+        <div class="author-bio">
+          <div class="author-bio-avatar">
+            ${initial}
           </div>
           <div>
-            <div class="footer-group-title">Utilities</div>
-            <ul class="footer-links">
-              <li><a href="/tools/cgpa-calculator.html" class="footer-link">CGPA Calculator</a></li>
-              <li><a href="/tools/percentage-calculator.html" class="footer-link">Percentage Converter</a></li>
-              <li><a href="/tools/word-counter.html" class="footer-link">Word Counter</a></li>
-            </ul>
-          </div>
-          <div>
-            <div class="footer-group-title">Info</div>
-            <ul class="footer-links">
-              <li><a href="/about.html" class="footer-link">About Us</a></li>
-              <li><a href="/privacy-policy.html" class="footer-link">Privacy Policy</a></li>
-            </ul>
+            <div class="author-bio-name">
+              ${author}
+            </div>
+            <p class="author-bio-desc">
+              The UtilityLab team creates
+              practical guides and free tools
+              for students worldwide. We believe
+              great resources should be free,
+              honest, and genuinely useful.
+            </p>
           </div>
         </div>
       </div>
-      <hr class="footer-separator">
-      <div class="footer-bottom">
-        <div>&copy; 2026 UtilityLab.xyz &middot; Made with &hearts; for Indian Students</div>
-      </div>
-    </div>
-  </footer>
 
-  <!-- Scripts -->
-  <script src="/assets/js/main.js"></script>
+      <aside class="post-sidebar">
+        <div class="sidebar-card">
+          <h3>Table of Contents</h3>
+          <ul class="toc-list" id="tocList">
+          </ul>
+        </div>
+        <div class="sidebar-ad">
+          <!-- AdSense 300×250 Sidebar -->
+        </div>
+      </aside>
+    </div>
+
+    <section class="related-section"
+      id="relatedSection">
+    </section>
+
+    <div class="ad-banner">
+      <!-- AdSense 728×90 -->
+    </div>
+  `;
+
+  // BUILD TOC
+  buildToc();
+
+  // LOAD RELATED POSTS
+  loadRelated(fm.category, slug);
+}
+
+// ═══════════════════════════════════════
+// INJECT MID ARTICLE AD
+// ═══════════════════════════════════════
+function injectMidAd(html) {
+  const adHtml = `
+    <div class="mid-article-ad">
+      <!-- AdSense Mid-Article 336×280 -->
+    </div>
+  `;
+  const parts = html.split('</p>');
+  if (parts.length <= 3) return html + adHtml;
+  parts.splice(3, 0, adHtml);
+  return parts.join('</p>');
+}
+
+// ═══════════════════════════════════════
+// BUILD TABLE OF CONTENTS
+// ═══════════════════════════════════════
+function buildToc() {
+  const content =
+    document.getElementById('articleContent');
+  const toc =
+    document.getElementById('tocList');
+
+  if (!content || !toc) return;
+
+  const headings = content.querySelectorAll(
+    'h2, h3'
+  );
+
+  if (headings.length === 0) {
+    toc.closest('.sidebar-card')
+      .style.display = 'none';
+    return;
+  }
+
+  headings.forEach((h, i) => {
+    const id = `heading-${i}`;
+    h.id = id;
+    const li = document.createElement('li');
+    li.className =
+      `toc-item ${h.tagName.toLowerCase()}`;
+    li.innerHTML =
+      `<a href="#${id}">${h.textContent}</a>`;
+    toc.appendChild(li);
+  });
+}
+
+// ═══════════════════════════════════════
+// LOAD RELATED POSTS
+// ═══════════════════════════════════════
+async function loadRelated(category, currentSlug) {
+  try {
+    const res = await fetch(
+      '/content/blog/index.json'
+    );
+    if (!res.ok) return;
+
+    const posts = await res.json();
+    const related = posts
+      .filter(p =>
+        p.slug !== currentSlug &&
+        p.category === category
+      )
+      .slice(0, 3);
+
+    if (related.length === 0) return;
+
+    const section =
+      document.getElementById('relatedSection');
+    section.innerHTML = `
+      <h2 class="related-title">
+        Related Articles
+      </h2>
+      <div class="related-grid">
+        ${related.map(p => `
+          <a href="/blog/${p.slug}"
+            class="related-card">
+            <span class="related-card-cat">
+              ${p.category
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g,
+                  l => l.toUpperCase())}
+            </span>
+            <h3>${p.title}</h3>
+            <div class="related-card-meta">
+              ${p.read_time || 5} min read
+            </div>
+          </a>
+        `).join('')}
+      </div>
+    `;
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════
+// ARTICLE SCHEMA
+// ═══════════════════════════════════════
+function addArticleSchema(fm, url) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": fm.title || '',
+    "description": fm.description || '',
+    "url": url,
+    "datePublished": fm.date || '',
+    "dateModified": fm.date || '',
+    "author": {
+      "@type": "Person",
+      "name": fm.author || 'UtilityLab Team'
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "UtilityLab",
+      "url": "https://utilitylabs.xyz"
+    },
+    "image": fm.thumbnail || ''
+  };
+
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(schema);
+  document.head.appendChild(script);
+}
+
+// ═══════════════════════════════════════
+// SHARE
+// ═══════════════════════════════════════
+function copyLink() {
+  navigator.clipboard
+    .writeText(window.location.href)
+    .then(() => {
+      const btn = event.target;
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => {
+        btn.textContent = '🔗 Copy Link';
+      }, 2000);
+    });
+}
+
+// ═══════════════════════════════════════
+// NOT FOUND
+// ═══════════════════════════════════════
+function showNotFound() {
+  document.getElementById('metaTitle')
+    .textContent = '404 — Post Not Found | UtilityLab';
+  document.getElementById('postContent')
+    .innerHTML = `
+    <div class="not-found">
+      <h1>Post Not Found</h1>
+      <p>This article does not exist or
+        may have been moved.</p>
+      <a href="/blog" class="btn-primary">
+        ← Back to Blog
+      </a>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+document.addEventListener(
+  'DOMContentLoaded', loadPost
+);
+</script>
+
 </body>
 </html>
