@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <!-- GA4 tag goes here -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <script type="application/ld+json">
   {
@@ -2130,6 +2131,16 @@ function showNotif(msg) {
   setTimeout(() => el.classList.remove('show'), 2500);
 }
 </script>
-
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>

@@ -2,19 +2,109 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "assets/images"
-public_folder: "/assets/images"
+media_folder: assets/images/blog
+public_folder: /assets/images/blog
+
+site_url: https://utilitylabs.xyz
+display_url: https://utilitylabs.xyz
 
 collections:
-  - name: "blog"
-    label: "Blog Post"
-    folder: "content/blog"
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: content/blog
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    delete: true
+    slug: "{{fields.slug}}"
+    preview_path: "blog/{{fields.slug}}"
+    summary: "{{title}} — {{date}}"
+    editor:
+      preview: false
     fields:
-      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
-      - {label: "Body", name: "body", widget: "markdown"}
+      - label: Title
+        name: title
+        widget: string
+        hint: "Keep under 60 characters for SEO"
+
+      - label: URL Slug
+        name: slug
+        widget: string
+        hint: "Short, hyphen-separated, 3-5 words max. Example: cgpa-to-percentage — becomes utilitylabs.xyz/blog/cgpa-to-percentage"
+        pattern:
+          - "^[a-z0-9-]+$"
+          - "Lowercase letters, numbers and hyphens only. No spaces."
+
+      - label: Publish Date
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "DD MMM YYYY"
+        time_format: false
+
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - label: "Study Tips"
+            value: "study-tips"
+          - label: "Free Tools"
+            value: "free-tools"
+          - label: "Earn Online"
+            value: "earn-online"
+          - label: "Calculators"
+            value: "calculators"
+          - label: "Productivity"
+            value: "productivity"
+          - label: "Career Advice"
+            value: "career-advice"
+
+      - label: Featured Image
+        name: thumbnail
+        widget: image
+        required: false
+        hint: "Recommended size: 1200x630px"
+
+      - label: Meta Description
+        name: description
+        widget: string
+        hint: "Under 160 characters. Shows in Google search results."
+        pattern:
+          - ".{10,160}"
+          - "Must be between 10 and 160 characters"
+
+      - label: Author Name
+        name: author
+        widget: string
+        default: "UtilityLab Team"
+
+      - label: Reading Time (minutes)
+        name: read_time
+        widget: number
+        default: 5
+        value_type: int
+        min: 1
+        max: 60
+        hint: "Estimate how long this takes to read"
+
+      - label: Featured Post
+        name: featured
+        widget: boolean
+        default: false
+        hint: "Show this post in the homepage featured section"
+
+      - label: Affiliate Link (optional)
+        name: affiliate_url
+        widget: string
+        required: false
+        hint: "If promoting a tool, add the affiliate URL here"
+
+      - label: Affiliate Button Text (optional)
+        name: affiliate_text
+        widget: string
+        required: false
+        hint: "e.g. Try It Free →"
+
+      - label: Article Body
+        name: body
+        widget: markdown
+        hint: "Write your full article here. Use headings, bullet points, and keep paragraphs short."
