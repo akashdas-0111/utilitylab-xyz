@@ -28,16 +28,11 @@
     Access-Control-Allow-Origin = "*"
 
 [[redirects]]
-  from = "/blog/post"
-  to = "/blog/post.html"
-  status = 200
-  force = true
-
-[[redirects]]
   from = "/blog/:slug"
   to = "/blog/post.html?slug=:slug"
   status = 200
   force = true
+  conditions = {Language = [], Country = [], Role = []}
 
 [[redirects]]
   from = "/404"
