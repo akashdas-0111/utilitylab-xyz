@@ -26,7 +26,11 @@
   margin: 0;
   padding: 0;
 }
-
+@media (max-width: 768px) {
+  #latestPostsGrid {
+    grid-template-columns: 1fr !important;
+  }
+}
 /* Base Styles */
 html {
   scroll-behavior: smooth;
