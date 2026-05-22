@@ -821,7 +821,8 @@ const CAT_EMOJIS = {
 async function loadPosts() {
   try {
     const res = await fetch(
-      '/content/blog/index.json'
+      '/content/blog/index.json',
+      { cache: 'no-store' }
     );
     if (!res.ok) return;
     const data = await res.json();
@@ -835,7 +836,7 @@ async function loadPosts() {
     filteredPosts = [...allPosts];
     renderPosts();
   } catch(e) {
-    // No posts yet — empty state shows
+    console.error('Failed to load posts:', e);
   }
 }
 
