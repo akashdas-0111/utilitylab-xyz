@@ -1,1 +1,1 @@
-/blog/:slug    /blog/post.html?slug=:slug    200!
+/blog/:slug    /blog/post    200!

@@ -912,10 +912,25 @@
 // GET SLUG FROM URL
 // ═══════════════════════════════════════
 function getSlug() {
+  // Try query param first
   const params = new URLSearchParams(
     window.location.search
   );
-  return params.get('slug') || '';
+  const querySlug = params.get('slug');
+  if (querySlug) return querySlug;
+
+  // Fall back to reading from URL path
+  // e.g. /blog/free-ai-tools-for-students
+  const parts = window.location.pathname
+    .split('/').filter(Boolean);
+  // parts = ['blog', 'free-ai-tools-for-students']
+  // Return last segment if it's not 'post'
+  const last = parts[parts.length - 1];
+  if (last && last !== 'post' && last !== 'blog') {
+    return last;
+  }
+
+  return '';
 }
 
 // ═══════════════════════════════════════
